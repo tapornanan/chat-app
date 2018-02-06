@@ -14,10 +14,19 @@ let io = socketIO(server);
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-    console.log('new user connect')
 
     socket.on('disconnect', () => {
         console.log('user was disconnected')
+    });
+
+    socket.on('createMessage', (msg) => {
+        console.log(msg)
+    })
+
+    socket.emit('newMessage', {
+        from: 'God',
+        text: 'Your got bless!',
+        createdAt: new Date().toDateString()
     })
 })
 
